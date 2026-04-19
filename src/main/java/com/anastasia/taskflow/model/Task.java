@@ -32,8 +32,8 @@ public class Task {
         this.title = title;
         this.description = description;
         this.status = status;
-        this.deadline = deadline;
         this.priority = priority;
+        this.deadline = deadline;
         this.createdAt = createdAt;
     }
 
