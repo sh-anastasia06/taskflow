@@ -2,6 +2,7 @@ package com.anastasia.taskflow.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Task {
@@ -96,6 +97,20 @@ public class Task {
                 ", title='" + title + '\'' +
                 ", status=" + status +
                 ", priority=" + priority +
+                ", deadline=" + deadline +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(id, task.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
