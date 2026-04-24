@@ -15,7 +15,7 @@ public class Task {
     private LocalDate deadline;
     private final LocalDateTime createdAt;
 
-    public Task(UUID projectId, String title, String description, Priority priority) {
+    public Task(UUID projectId, String title, String description, Priority priority, LocalDate deadline) {
         this.id = UUID.randomUUID();
         this.createdAt = LocalDateTime.now();
         this.status = Status.TODO;
@@ -23,6 +23,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.priority = priority;
+        this.deadline = deadline;
     }
 
 //    Reconstructing from DB
