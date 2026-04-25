@@ -37,7 +37,7 @@ public class TaskService {
         return taskRepository.save(task);
     }
 
-    public Optional<Task> getByID(UUID id) {
+    public Optional<Task> getById(UUID id) {
         if (id == null) throw new IllegalArgumentException("Task id cannot be null");
 
         return taskRepository.getById(id);
