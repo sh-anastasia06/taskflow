@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anastasia.taskflow.controller.MainController">
+
+    <!-- toolbar -->
+    <top>
+        <HBox spacing="10" styleClass="toolbar" alignment="CENTER_LEFT">
+            <padding><Insets topRightBottomLeft="16"/></padding>
+            <FontIcon iconLiteral="fas-tasks"
+                      iconSize="24"
+                      iconColor="#91C4C8"/>
+            <Label styleClass="app-title" text="TaskFlow" />
+        </HBox>
+    </top>
+
+    <!-- projects list -->
+    <left>
+        <VBox prefWidth="220" spacing="8" styleClass="sidebar">
+            <padding><Insets topRightBottomLeft="12" /></padding>
+            <Label styleClass="sidebar-title" text="PROJECTS"/>
+            <ListView fx:id="projectListView" styleClass="list-view" VBox.vgrow="ALWAYS" />
+            <Region VBox.vgrow="ALWAYS" />
+            <Button fx:id="createProjectBtn"
+                    maxWidth="Infinity"
+                    onAction="#handleCreateProject"
+                    text="+ New Project"
+                    styleClass="button-primary"/>
+            <Region prefHeight="8"/>
+            <Button maxWidth="Infinity" onAction="#handleSettings" text="⚙ Settings"/>
+            <Button maxWidth="Infinity" onAction="#handleAbout" text="ℹ About"/>
+        </VBox>
+    </left>
+
+    <!-- kanban board -->
+    <center>
+        <StackPane>
+            <VBox fx:id="welcomePane" alignment="CENTER" styleClass="welcome-pane">
+                <Label text="Select a project or create a new one"
+                       styleClass="welcome-label"
+                       textAlignment="CENTER"/>
+            </VBox>
+
+            <HBox fx:id="kanbanBoard" spacing="12" visible="false"
+                  styleClass="kanban-board">
+                <padding><Insets topRightBottomLeft="16"/></padding>
+            </HBox>
+        </StackPane>
+    </center>
+
+</BorderPane>
