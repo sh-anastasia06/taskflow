@@ -1,0 +1,24 @@
+.root {
+    /* GLOBAL COLORS */
+    -surfaces-color: #FFFFFF;
+    -app-background-color: #F7F8FA;
+    -sidebar-color: #F0F1F5;
+    -border-color: #E2E4E9;
+
+    -primary-text-color: #1A1A2E;
+    -secondary-text-color: #4A4A6A;
+    -muted-text-color: #9898B0;
+
+    -primary-accent-color: #91C4C8;
+    -primary-accent-hover-color: #7AB0B4;
+    -done-accent-color: #22C55E;
+    -warning-accent-color: #F59E0B;
+    -critical-accent-color: #DB6060;
+    -critical-accent-hover-color: #C95757;
+    -in-progress-kanban-color: #8B5CF6;
+
+    /* GLOBAL FONTS */
+    -fx-font-family: "Roboto", "Segoe UI", sans-serif;
+    -fx-font-size: 12px;
+    -fx-background-color: -app-background-color;
+}

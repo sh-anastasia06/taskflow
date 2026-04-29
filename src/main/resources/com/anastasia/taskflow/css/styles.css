@@ -1,26 +1,4 @@
-.root {
-    /* GLOBAL COLORS */
-    -surfaces-color: #FFFFFF;
-    -app-background-color: #F7F8FA;
-    -sidebar-color: #F0F1F5;
-    -border-color: #E2E4E9;
-
-    -primary-text-color: #1A1A2E;
-    -secondary-text-color: #4A4A6A;
-    -muted-text-color: #9898B0;
-
-    -primary-accent-color: #91C4C8;
-    -primary-accent-hover-color: #7AB0B4;
-    -done-accent-color: #22C55E;
-    -warning-accent-color: #F59E0B;
-    -critical-accent-color: #EF4444;
-    -in-progress-kanban-color: #8B5CF6;
-
-    /* GLOBAL FONTS */
-    -fx-font-family: "Roboto", "Segoe UI", sans-serif;
-    -fx-font-size: 12px;
-    -fx-background-color: -app-background-color;
-}
+@import "colors.css";
 
 .toolbar {
     -fx-background-color: -surfaces-color;
@@ -57,7 +35,7 @@
     -fx-border-color: transparent;
     -fx-padding: 8 12 8 12;
     -fx-cursor: hand;
-    -fx-alignment: CENTER_LEFT;
+    -fx-alignment: center;
 }
 
 .button:hover {
@@ -84,7 +62,7 @@
 
 .welcome-label {
     -fx-font-size: 20px;
-    -fx-text-fill: #FFFFFF;
+    -fx-text-fill: -surfaces-color;
     -fx-font-weight: bold;
     -fx-background-color: rgba(0, 0, 0, 0.2);
     -fx-background-radius: 8;
@@ -118,4 +96,215 @@
     -fx-background-color: -primary-accent-color;
     -fx-text-fill: white;
     -fx-background-radius: 6;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell:empty:hover {
+    -fx-background-color: transparent;
+}
+
+/* Project dialog */
+.project-dialog {
+    -fx-font-family: "Roboto", "Segoe UI", sans-serif;
+    -fx-background-color: -app-background-color;
+    -fx-font-size: 14;
+}
+
+.project-dialog .button{
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.project-dialog .button:default {
+    -fx-background-color: -primary-accent-color, -primary-accent-color;
+}
+
+.project-dialog .button:default:hover {
+    -fx-background-color: -primary-accent-hover-color, -primary-accent-hover-color;
+}
+
+.project-dialog .button:cancel {
+    -fx-background-color: -critical-accent-color, -critical-accent-color;
+}
+
+.project-dialog .button:cancel:hover {
+    -fx-background-color: -critical-accent-hover-color, -critical-accent-hover-color;
+}
+
+.error-label {
+    -fx-text-fill: -critical-accent-color;
+    -fx-font-size: 11;
+}
+
+.text-field {
+    -fx-padding: 8 12;
+    -fx-font-size: 12;
+    -fx-text-fill: #333;
+    -fx-background-color: -app-background-color, -surfaces-color;
+    -fx-background-insets: 0, 2;
+    -fx-background-radius: 6, 5;
+    -fx-border-width: 2;
+    -fx-border-radius: 6;
+}
+
+.text-field:focused {
+    -fx-background-color: -primary-accent-color, -surfaces-color;
+}
+
+.text-field.field-error {
+    -fx-background-color: -critical-accent-color, #ffffff;
+    -fx-background-insets: 0, 2;
+}
+
+.text-area {
+    -fx-padding: 1;
+    -fx-font-size: 12;
+    -fx-background-color: -app-background-color, -surfaces-color;
+    -fx-background-radius: 6, 4;
+    -fx-border-width: 0;
+    -fx-background-insets: 0, 2.5;
+}
+
+.text-area .content {
+    -fx-background-color: -surfaces-color;
+    -fx-padding: 8 8 12 8;
+}
+
+.text-area:focused {
+    -fx-background-color: -primary-accent-color, -surfaces-color;
+}
+
+.combo-box {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-border-color: -app-background-color;
+    -fx-background-insets: 0;
+}
+
+.combo-box:focused {
+    -fx-border-color: -primary-accent-color;
+    -fx-border-width: 2;
+    -fx-border-style: solid;
+    -fx-background-insets: 0;
+}
+
+.combo-box > .arrow-button {
+    -fx-background-color: #f4f4f4;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0 6 6 0;
+    -fx-border-width: 0;
+    -fx-padding: 0 10;
+}
+
+.combo-box > .list-cell {
+    -fx-background-color: -surfaces-color;
+    -fx-text-fill: #333;
+}
+
+.combo-box > .arrow-button > .arrow {
+    -fx-background-color: #666;
+    -fx-shape: "M 0 0 L 4 4 L 8 0 Z";
+    -fx-padding: 3 4;
+}
+
+.combo-box {
+    -fx-background-color: white;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+}
+
+.combo-box > .list-cell {
+    -fx-background-insets: 0;
+    -fx-padding: 8 12;
+}
+
+/* container stylization */
+.combo-box .list-view {
+    -fx-background-color: -surfaces-color;
+    -fx-background-radius: 6;
+    -fx-border-color: -border-color;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+/* cell stylization */
+.combo-box .list-view .list-cell {
+    -fx-padding: 8 12;
+    -fx-background-color: transparent;
+    -fx-text-fill: #333;
+}
+
+.combo-box .list-view .list-cell:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.1);
+}
+
+.combo-box-popup .list-view .list-cell:filled:selected{
+    -fx-background-color: -primary-accent-color;
+    -fx-text-fill: -surfaces-color;
+}
+
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-width: 2;
+    -fx-border-color: transparent;
+}
+
+.date-picker:focused {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-border-color: -primary-accent-color;
+}
+
+.date-picker.field-error {
+    -fx-background-color: -critical-accent-color, #ffffff;
+    -fx-background-insets: 0, 2;
+}
+
+.date-picker > .text-field {
+    -fx-background-color: -surfaces-color;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6 0 0 6;
+    -fx-padding: 8 12;
+    -fx-font-size: 12;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: #f4f4f4;
+    -fx-background-radius: 0 6 6 0;
+    -fx-cursor: hand;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-shape: "M7 11h2v2H7v-2zm14-5v14c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h1V2h2v2h8V2h2v2h1c1.1 0 2 .9 2 2zM5 8h14V6H5v2zm14 12V10H5v10h14z";
+    -fx-background-color: #666;
+}
+
+.date-picker-popup {
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 4;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 5);
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #f4f4f4;
+}
+
+.date-picker-popup > .calendar-grid > .day-cell:selected,
+.date-picker-popup > .calendar-grid > .today {
+    -fx-background-color: #91C4C8;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup > .calendar-grid > .day-cell:hover {
+    -fx-background-color: #e0f2f3;
+    -fx-text-fill: #333;
 }
