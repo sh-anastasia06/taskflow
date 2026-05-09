@@ -15,10 +15,10 @@ public class Task {
     private LocalDate deadline;
     private final LocalDateTime createdAt;
 
-    public Task(UUID projectId, String title, String description, Priority priority, LocalDate deadline) {
+    public Task(UUID projectId, String title, String description, Status status, Priority priority, LocalDate deadline) {
         this.id = UUID.randomUUID();
         this.createdAt = LocalDateTime.now();
-        this.status = Status.TODO;
+        this.status = status;
         this.projectId = projectId;
         this.title = title;
         this.description = description;

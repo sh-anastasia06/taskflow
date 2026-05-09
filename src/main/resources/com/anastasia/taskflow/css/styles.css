@@ -85,7 +85,7 @@
     -fx-text-fill: -primary-text-color;
     -fx-padding: 8 10 8 10;
     -fx-background-radius: 6;
-    -fx-font-size: 13px;
+    -fx-font-size: 13;
 }
 
 .list-cell:hover {
@@ -307,4 +307,150 @@
 .date-picker-popup > .calendar-grid > .day-cell:hover {
     -fx-background-color: #e0f2f3;
     -fx-text-fill: #333;
+}
+
+/* TASK CARD */
+.task-card {
+    -fx-background-color: -surfaces-color;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
+    -fx-cursor: hand;
+}
+
+.task-card:hover {
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.15), 15, 0, 0, 6);
+}
+
+.task-card .task-title {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.task-card .task-description {
+    -fx-font-size: 13;
+    -fx-font-weight: 200;
+    -fx-text-fill: #444;
+}
+
+.task-card .task-date {
+    -fx-font-size: 12;
+}
+
+.task-card .edit-button {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+    -fx-cursor: hand;
+}
+
+.task-card .edit-button .font-icon {
+    -fx-icon-color: #666;
+}
+
+.edit-button:hover .font-icon{
+    -fx-icon-color: #444;
+}
+
+.icon-gray {
+    -fx-icon-color: #666;
+}
+
+/* KANBAN */
+.kanban-board {
+    -fx-background-image: url("../images/main-background.jpg");
+    -fx-background-repeat: repeat;
+    -fx-background-size: cover;
+}
+
+.kanban-column{
+   -fx-background-color: rgba(0, 0, 0, 0.2);
+   -fx-background-radius: 12;
+}
+
+.kanban-column .column-title {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: #fff;
+}
+
+.cards-container {
+    -fx-background-color: transparent;
+}
+
+.kanban-column .add-task-btn {
+    -fx-font-weight: bold;
+}
+
+.kanban-column .add-task-btn:hover {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-text-fill: #fff;
+}
+
+.column-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.column-scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 6;
+    -fx-background-color: transparent;
+}
+
+.column-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: -muted-text-color;
+    -fx-background-radius: 3;
+}
+
+.column-scroll-pane .scroll-bar:vertical .track,
+.column-scroll-pane .scroll-bar:vertical .increment-button,
+.column-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.column-scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+.task-card {
+    -fx-background-color: transparent;
+}
+
+/* TASK DIALOG */
+.task-dialog {
+    -fx-font-family: "Roboto", "Segoe UI", sans-serif;
+    -fx-background-color: -app-background-color;
+    -fx-font-size: 14;
+}
+
+.task-dialog .button{
+    -fx-text-fill: #fff;
+    -fx-font-weight: bold;
+}
+
+.task-dialog .delete-btn {
+    -fx-padding: 8;
+    -fx-background-color: -critical-accent-color, -critical-accent-color;
+}
+
+.task-dialog .delete-btn:hover {
+    -fx-background-color: -critical-accent-hover-color, -critical-accent-hover-color;
+}
+
+.task-dialog .button:default {
+    -fx-background-color: -primary-accent-color, -primary-accent-color;
+}
+
+.task-dialog .button:default:hover {
+    -fx-background-color: -primary-accent-hover-color, -primary-accent-hover-color;
+}
+
+.task-dialog .button:cancel {
+    -fx-background-color: -critical-accent-color, -critical-accent-color;
+}
+
+.task-dialog .button:cancel:hover {
+    -fx-background-color: -critical-accent-hover-color, -critical-accent-hover-color;
 }

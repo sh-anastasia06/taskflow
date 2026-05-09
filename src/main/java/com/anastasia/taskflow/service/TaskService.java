@@ -1,6 +1,7 @@
 package com.anastasia.taskflow.service;
 
 import com.anastasia.taskflow.model.Priority;
+import com.anastasia.taskflow.model.Status;
 import com.anastasia.taskflow.model.Task;
 import com.anastasia.taskflow.repository.ProjectRepository;
 import com.anastasia.taskflow.repository.TaskRepository;
@@ -19,7 +20,7 @@ public class TaskService {
         this.projectRepository = projectRepository;
     }
 
-    public Task createTask(UUID projectId, String title, String description, Priority priority, LocalDate deadline) {
+    public Task createTask(UUID projectId, String title, String description, Status status, Priority priority, LocalDate deadline) {
         if (projectId == null) throw new IllegalArgumentException("Project id cannot be null");
 
         if (title == null || title.isBlank()) throw new IllegalArgumentException("Task title cannot be empty");
@@ -33,7 +34,7 @@ public class TaskService {
 
         Task task =  new Task(projectId, trimmedTitle,
                 description != null ? description.trim() : null,
-                priority, deadline);
+                status, priority, deadline);
         return taskRepository.save(task);
     }
 
