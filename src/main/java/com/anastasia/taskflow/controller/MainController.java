@@ -26,6 +26,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.DataInput;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -340,6 +341,11 @@ public class MainController {
         if(task.getDeadline() == null) {
             clockIcon.setVisible(false);
             deadline.setVisible(false);
+        }
+
+        if (task.getDeadline() != null && task.getDeadline().isBefore(LocalDate.now())
+            && task.getStatus() != Status.DONE) {
+            clockIcon.getStyleClass().add("overdue");
         }
 
         Region footerSpacer = new Region();

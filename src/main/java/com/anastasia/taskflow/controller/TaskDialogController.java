@@ -110,7 +110,13 @@ public class TaskDialogController {
 
     private void validateDeadline() {
         LocalDate value = deadlinePicker.getValue();
-        if (value != null && value.isBefore(LocalDate.now())) {
+        LocalDate originalDeadline = existingTask != null ? existingTask.getDeadline() : null;
+
+        boolean isPastAndChanged = value != null
+                && value.isBefore(LocalDate.now())
+                && !value.equals(originalDeadline);
+
+        if (isPastAndChanged) {
             deadlineError.setText("Deadline cannot be in the past");
             deadlineError.setVisible(true);
             deadlineError.setManaged(true);
