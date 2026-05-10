@@ -38,17 +38,29 @@
 
     <!-- kanban board -->
     <center>
-        <StackPane>
+        <StackPane styleClass="center">
             <VBox fx:id="welcomePane" alignment="CENTER" styleClass="welcome-pane">
                 <Label text="Select a project or create a new one"
                        styleClass="welcome-label"
                        textAlignment="CENTER"/>
             </VBox>
 
-            <HBox fx:id="kanbanBoard" spacing="12" visible="false"
-                  styleClass="kanban-board">
-                <padding><Insets topRightBottomLeft="16"/></padding>
-            </HBox>
+            <VBox fx:id="projectView" visible="false" VBox.vgrow="ALWAYS">
+                <HBox fx:id="projectHeader" styleClass="project-header" alignment="CENTER_LEFT" spacing="12">
+                    <padding><Insets topRightBottomLeft="8"/></padding>
+                    <Label fx:id="projectNameLabel" styleClass="project-name-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <ToggleButton fx:id="showCancelledBtn" text="Show Cancelled" styleClass="toggle-cancelled-btn"/>
+                    <Button fx:id="editProjectBtn" styleClass="edit-project-btn">
+                        <graphic>
+                            <FontIcon iconLiteral="far-edit" iconSize="18" iconColor="#4A4A6A" styleClass="icon"/>
+                        </graphic>
+                    </Button>
+                </HBox>
+                <HBox fx:id="kanbanBoard" spacing="12" styleClass="kanban-board" VBox.vgrow="ALWAYS">
+                    <padding><Insets topRightBottomLeft="16"/></padding>
+                </HBox>
+            </VBox>
         </StackPane>
     </center>
 

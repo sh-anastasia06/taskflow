@@ -29,7 +29,7 @@
 .button {
     -fx-background-color: transparent;
     -fx-text-fill: -secondary-text-color;
-    -fx-font-size: 13px;
+    -fx-font-size: 13;
     -fx-background-radius: 6;
     -fx-border-radius: 6;
     -fx-border-color: transparent;
@@ -69,7 +69,7 @@
     -fx-padding: 12 24 12 24;
 }
 
-.welcome-pane {
+.center {
     -fx-background-image: url("../images/main-background.jpg");
     -fx-background-repeat: repeat;
     -fx-background-size: cover;
@@ -311,11 +311,10 @@
 
 /* TASK CARD */
 .task-card {
-    -fx-background-color: -surfaces-color;
+    -fx-background-color: transparent;
     -fx-background-radius: 6;
     -fx-border-radius: 6;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 4);
-    -fx-cursor: hand;
 }
 
 .task-card:hover {
@@ -362,10 +361,45 @@
 }
 
 /* KANBAN */
-.kanban-board {
-    -fx-background-image: url("../images/main-background.jpg");
-    -fx-background-repeat: repeat;
-    -fx-background-size: cover;
+.project-header {
+    -fx-background-color: rgba(0,0,0,0.2);
+    -fx-background-radius: 0 0 12 12;
+}
+
+.project-header .project-name-label {
+    -fx-font-size: 16;
+    -fx-text-fill: -secondary-text-color;
+    -fx-font-weight: bold;
+}
+
+.project-header .toggle-cancelled-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -secondary-text-color;
+    -fx-font-size: 13;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: transparent;
+    -fx-padding: 8 12 8 12;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+}
+
+.project-header .toggle-cancelled-btn:hover{
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-text-fill: #fff;
+}
+
+.edit-project-btn {
+    -fx-padding: 7 9 8 12;
+    -fx-icon-color: -secondary-text-color;
+}
+
+.edit-project-btn:hover {
+    -fx-background-color: rgba(0,0,0,0.3);
+}
+
+.edit-project-btn:hover .icon{
+    -fx-fill: #fff;
 }
 
 .kanban-column{
@@ -419,8 +453,8 @@
     -fx-background-color: transparent;
 }
 
-.task-card {
-    -fx-background-color: transparent;
+.task-card .edit-button:hover .icon {
+    -fx-fill: #fff;
 }
 
 /* TASK DIALOG */
@@ -435,12 +469,12 @@
     -fx-font-weight: bold;
 }
 
-.task-dialog .delete-btn {
+.delete-btn {
     -fx-padding: 8;
     -fx-background-color: -critical-accent-color, -critical-accent-color;
 }
 
-.task-dialog .delete-btn:hover {
+.delete-btn:hover {
     -fx-background-color: -critical-accent-hover-color, -critical-accent-hover-color;
 }
 

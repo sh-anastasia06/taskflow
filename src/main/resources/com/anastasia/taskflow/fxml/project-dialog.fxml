@@ -5,6 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <VBox prefHeight="400.0" prefWidth="600.0" spacing="20" styleClass="project-dialog" stylesheets="@../css/styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.anastasia.taskflow.controller.ProjectDialogController">
     <padding><Insets topRightBottomLeft="20" /></padding>
     <VBox spacing="4">
@@ -41,4 +42,14 @@
             </cursor></DatePicker>
         <Label fx:id="deadlineError" styleClass="error-label" text="" visible="false" managed="false"/>
     </VBox>
+
+    <HBox fx:id="deleteBtnContainer" alignment="CENTER_RIGHT" managed="false" visible="false">
+        <Button fx:id="deleteBtn" styleClass="delete-btn">
+            <graphic>
+                <FontIcon iconLiteral="fas-trash" iconSize="18" iconColor="white"/>
+            </graphic>
+            <cursor>
+                <Cursor fx:constant="HAND"/>
+            </cursor></Button>
+    </HBox>
 </VBox>

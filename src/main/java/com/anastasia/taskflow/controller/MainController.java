@@ -7,6 +7,7 @@ import com.anastasia.taskflow.model.Status;
 import com.anastasia.taskflow.model.Task;
 import com.anastasia.taskflow.service.ProjectService;
 import com.anastasia.taskflow.service.TaskService;
+import javafx.beans.value.ChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,6 +33,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class MainController {
+    @FXML private VBox projectView;
+    @FXML private HBox projectHeader;
+    @FXML private Label projectNameLabel;
+    @FXML private ToggleButton showCancelledBtn;
+    @FXML private Button editProjectBtn;
     @FXML private Button createProjectBtn;
     @FXML private VBox welcomePane;
     @FXML private ListView<Project> projectListView;
@@ -39,6 +45,8 @@ public class MainController {
 
     private ProjectService projectService;
     private TaskService taskService;
+
+    private ChangeListener<Boolean> cancelledToggleListener;
 
     @FXML
     public void initialize() {
@@ -124,9 +132,61 @@ public class MainController {
         }
     }
 
+    private void handleEditProject(Project project) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass()
+                    .getResource("/com/anastasia/taskflow/fxml/project-dialog.fxml"));
+            Parent root = loader.load();
+
+            ProjectDialogController controller = loader.getController();
+            controller.setProject(project);
+
+            Dialog<Project> dialog = new Dialog<>();
+            dialog.setTitle("Edit Project");
+            dialog.getDialogPane().setContent(root);
+            dialog.getDialogPane().getStyleClass().add("project-dialog");
+            dialog.getDialogPane().getButtonTypes().addAll(
+                    ButtonType.OK,
+                    ButtonType.CANCEL
+            );
+            dialog.getDialogPane().getStylesheets().add(getClass().getResource("/com/anastasia/taskflow/css/styles.css").toExternalForm());
+
+            Button okButton = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.addEventFilter(ActionEvent.ACTION, event -> {
+                if (controller.getResult().isEmpty()) {
+                    event.consume();
+                }
+            });
+
+            dialog.setResultConverter(buttonType -> {
+                if (buttonType == ButtonType.OK) {
+                    return controller.getResult().orElse(null);
+                }
+                return null;
+            });
+
+            controller.setOnDelete(() -> {
+                projectService.deleteProject(project.getId());
+                dialog.close();
+                loadProjects();
+                welcomePane.setVisible(true);
+                projectView.setVisible(false);
+            });
+
+            Optional<Project> result = dialog.showAndWait();
+            result.ifPresent(updatedProject -> {
+                projectService.updateProject(updatedProject);
+                loadProjects();
+                loadKanbanBoard(project);
+            });
+        } catch (IOException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to open dialog: " + e.getMessage()).show();
+        }
+    }
+
     private void handleProjectSelected(Project project) {
         welcomePane.setVisible(false);
-        kanbanBoard.setVisible(true);
+        projectView.setVisible(true);
         loadKanbanBoard(project);
     }
 
@@ -219,8 +279,8 @@ public class MainController {
 
             Optional<Task> result = dialog.showAndWait();
             result.ifPresent(updatedTask -> {
-                taskService.updateTask(updatedTask); // ← update instead of create
-                loadKanbanBoard(project); // ← refresh board
+                taskService.updateTask(updatedTask);
+                loadKanbanBoard(project);
             });
         } catch (IOException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to open dialog: " + e.getMessage()).showAndWait();
@@ -228,6 +288,10 @@ public class MainController {
     }
 
     private void loadKanbanBoard(Project project) {
+        projectNameLabel.setText(project.getName());
+
+        editProjectBtn.setOnAction(e -> handleEditProject(project));
+
         kanbanBoard.getChildren().clear();
         kanbanBoard.setMaxWidth(Double.MAX_VALUE);
         HBox.setHgrow(kanbanBoard, javafx.scene.layout.Priority.ALWAYS);
@@ -258,6 +322,33 @@ public class MainController {
         doneCol.setPrefWidth(0);
 
         kanbanBoard.getChildren().addAll(todoCol, progressCol, doneCol);
+
+        showCancelledBtn.setSelected(false);
+        showCancelledBtn.setText("Show Cancelled");
+
+        if (cancelledToggleListener != null) {
+            showCancelledBtn.selectedProperty().removeListener(cancelledToggleListener);
+        }
+
+         cancelledToggleListener = ((obs, wasSelected, isNowSelected) -> {
+            if (isNowSelected) {
+                List<Task> cancelledTasks = tasks.stream()
+                        .filter(t -> t.getStatus() == Status.CANCELLED)
+                        .toList();
+                VBox cancelledCol = createColumn("CANCELLED", Status.CANCELLED, cancelledTasks, project);
+                HBox.setHgrow(cancelledCol, javafx.scene.layout.Priority.ALWAYS);
+                cancelledCol.setPrefWidth(0);
+                kanbanBoard.getChildren().add(cancelledCol);
+                showCancelledBtn.setText("Hide Cancelled");
+            } else {
+                kanbanBoard.getChildren().removeIf(node ->
+                        node.getUserData() != null && node.getUserData().equals("CANCELLED")
+                );
+                showCancelledBtn.setText("Show Cancelled");
+            }
+        });
+
+        showCancelledBtn.selectedProperty().addListener(cancelledToggleListener);
     }
 
     private VBox createColumn(String title, Status status, List<Task> tasks, Project project) {
@@ -266,6 +357,10 @@ public class MainController {
         column.setMinWidth(170);
         column.setMaxWidth(Double.MAX_VALUE);
         column.setPadding(new Insets(10));
+
+        if (status == Status.CANCELLED) {
+            column.setUserData("CANCELLED");
+        }
 
         Label columnTitle = new Label(title);
         columnTitle.getStyleClass().add("column-title");
@@ -352,6 +447,7 @@ public class MainController {
         HBox.setHgrow(footerSpacer, javafx.scene.layout.Priority.ALWAYS);
 
         FontIcon editIcon = new FontIcon("far-edit");
+        editIcon.getStyleClass().add("icon");
         editIcon.setIconSize(16);
 
         Button editBtn = new Button();
